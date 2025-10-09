@@ -3,7 +3,7 @@ import matplotlib
 from .plot_utils import plot_generative_model_distribution, plot_classifier_decision_region
 
 
-def plot_counterfactuals(Xs, Xs_cfs, gen_model, log_prob_threshold, disc_model):
+def plot_counterfactuals(Xs, Xs_cfs, log_prob_threshold, disc_model, gen_model=None):
     fig, ax = plt.subplots(1, 1)
     group_colors = [
         "blue",
@@ -58,7 +58,8 @@ def plot_counterfactuals(Xs, Xs_cfs, gen_model, log_prob_threshold, disc_model):
             alpha=0.5,
         )
 
-    plot_generative_model_distribution(ax, gen_model, log_prob_threshold, 2)
+    if gen_model is not None:
+        plot_generative_model_distribution(ax, gen_model, log_prob_threshold, 2)
     plot_classifier_decision_region(ax, disc_model)
 
     ax.get_xaxis().set_visible(False)
@@ -69,5 +70,4 @@ def plot_counterfactuals(Xs, Xs_cfs, gen_model, log_prob_threshold, disc_model):
     ax.spines["bottom"].set_visible(False)
     ax.spines["left"].set_visible(False)
     plt.tight_layout()
-    plt.savefig("teaser_local.pdf", dpi=300)
     plt.show()
