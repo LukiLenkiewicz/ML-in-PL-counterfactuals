@@ -1,0 +1,73 @@
+import matplotlib.pyplot as plt
+import matplotlib
+from .plot_utils import plot_generative_model_distribution, plot_classifier_decision_region
+
+
+def plot_counterfactuals(Xs, Xs_cfs, gen_model, log_prob_threshold, disc_model):
+    fig, ax = plt.subplots(1, 1)
+    group_colors = [
+        "blue",
+        "red",
+        "green",
+        "orange",
+        "purple",
+        "brown",
+        "pink",
+        "gray",
+        "olive",
+        "cyan",
+    ]
+    group_cf_colors = [
+        "orange",
+        "purple",
+        "green",
+        "orange",
+        "purple",
+        "brown",
+        "pink",
+        "gray",
+        "olive",
+        "cyan",
+    ]
+    ax.scatter(
+        Xs_cfs[:, 0],
+        Xs_cfs[:, 1],
+        c="orange",
+        cmap=matplotlib.colormaps["tab10"],
+        s=40,
+        alpha=0.6,
+    )
+    ax.scatter(
+        Xs[:, 0],
+        Xs[:, 1],
+        c=group_colors[0],
+        cmap=matplotlib.colormaps["tab10"],
+        s=40,
+        alpha=0.6,
+    )
+    for i in range(len(Xs)):
+        ax.arrow(
+            Xs[i, 0],
+            Xs[i, 1],
+            Xs_cfs[i, 0] - Xs[i, 0],
+            Xs_cfs[i, 1] - Xs[i, 1],
+            head_width=0.00,
+            head_length=-0.05,
+            fc="grey",
+            ec="grey",
+            alpha=0.5,
+        )
+
+    plot_generative_model_distribution(ax, gen_model, log_prob_threshold, 2)
+    plot_classifier_decision_region(ax, disc_model)
+
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+    # remove frame
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["bottom"].set_visible(False)
+    ax.spines["left"].set_visible(False)
+    plt.tight_layout()
+    plt.savefig("teaser_local.pdf", dpi=300)
+    plt.show()
