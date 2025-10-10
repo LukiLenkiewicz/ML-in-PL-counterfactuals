@@ -61,17 +61,9 @@ def plot_counterfactuals(Xs, Xs_cfs, log_prob_threshold, disc_model, gen_model=N
             alpha=0.5,
         )
 
-    if gen_model is not None:
-        plot_generative_model_distribution(ax, gen_model, log_prob_threshold, 2)
-    plot_classifier_decision_region(ax, disc_model)
+    ax = plot_generative_model_distribution(ax, gen_model, log_prob_threshold, 2)
+    ax = plot_classifier_decision_region(ax, disc_model)
 
-    # ax.get_xaxis().set_visible(False)
-    # ax.get_yaxis().set_visible(False)
-    # remove frame
-    # ax.spines["top"].set_visible(False)
-    # ax.spines["right"].set_visible(False)
-    # ax.spines["bottom"].set_visible(False)
-    # ax.spines["left"].set_visible(False)
     plt.grid(True, alpha=0.3)
     plt.xlabel("Feature 1")
     plt.ylabel("Feature 2")

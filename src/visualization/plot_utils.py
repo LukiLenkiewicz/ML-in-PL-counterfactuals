@@ -11,8 +11,8 @@ from sklearn.inspection import DecisionBoundaryDisplay
 
 
 def plot_generative_model_distribution(ax, model, prob_threshold, num_classes):
-    xline = torch.linspace(-0, 1, 200)
-    yline = torch.linspace(-0, 1, 200)
+    xline = torch.linspace(-2, 2, 200)
+    yline = torch.linspace(-1.5, 1, 200)
     xgrid, ygrid = torch.meshgrid(xline, yline)
     xyinput = torch.cat([xgrid.reshape(-1, 1), ygrid.reshape(-1, 1)], dim=1)
 
