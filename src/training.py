@@ -24,31 +24,33 @@ def train_model(model, X_train_tensor, y_train_tensor):
         epoch_loss = 0.0
         correct_predictions = 0
         total_predictions = 0
-        
+
         for batch_X, batch_y in train_loader:
             # Forward pass
             outputs = model(batch_X)
             loss = criterion(outputs, batch_y)
-            
+
             # Backward pass and optimization
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-            
+
             # Statistics
             epoch_loss += loss.item()
             _, predicted = torch.max(outputs.data, 1)
             total_predictions += batch_y.size(0)
             correct_predictions += (predicted == batch_y).sum().item()
-        
+
         # Calculate average loss and accuracy for the epoch
         avg_loss = epoch_loss / len(train_loader)
         accuracy = correct_predictions / total_predictions
-        
+
         train_losses.append(avg_loss)
         train_accuracies.append(accuracy)
-        
+
         if (epoch + 1) % 20 == 0:
-            print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {avg_loss:.4f}, Accuracy: {accuracy:.4f}')
+            print(
+                f"Epoch [{epoch + 1}/{num_epochs}], Loss: {avg_loss:.4f}, Accuracy: {accuracy:.4f}"
+            )
 
     print("Training completed!")

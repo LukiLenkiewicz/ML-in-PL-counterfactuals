@@ -53,24 +53,24 @@ class CFMetrics:
         prob_plausibility_threshold: Optional[float] = None,
     ) -> None:
         # precheck input assumptions
-        assert (
-            X_cf.shape[1] == X_train.shape[1] == X_test.shape[1]
-        ), f"All input data should have the same number of features, but got {X_cf.shape[1]}, {X_train.shape[1]}, {X_test.shape[1]}"
-        assert (
-            X_train.shape[0] == y_train.shape[0]
-        ), f"X_train and y_train should have the same number of samples, but got {X_train.shape[0]} and {y_train.shape[0]}"
-        assert (
-            X_test.shape[0] == y_test.shape[0]
-        ), f"X_test and y_test should have the same number of samples, but got {X_test.shape[0]} and {y_test.shape[0]}"
-        assert (
-            X_cf.shape[0] == y_test.shape[0]
-        ), f"X_cf and y_test should have the same number of samples, but got {X_cf.shape[0]} and {y_test.shape[0]}"
-        assert (
-            len(continuous_features) + len(categorical_features) == X_cf.shape[1]
-        ), f"The sum of continuous and categorical features should equal the number of features in X_cf, but got {len(continuous_features)} + {len(categorical_features)} = {len(continuous_features) + len(categorical_features)} and {X_cf.shape[1]}"
-        assert (
-            ratio_cont is None or 0 <= ratio_cont <= 1
-        ), f"ratio_cont should be between 0 and 1, but got {ratio_cont}"
+        assert X_cf.shape[1] == X_train.shape[1] == X_test.shape[1], (
+            f"All input data should have the same number of features, but got {X_cf.shape[1]}, {X_train.shape[1]}, {X_test.shape[1]}"
+        )
+        assert X_train.shape[0] == y_train.shape[0], (
+            f"X_train and y_train should have the same number of samples, but got {X_train.shape[0]} and {y_train.shape[0]}"
+        )
+        assert X_test.shape[0] == y_test.shape[0], (
+            f"X_test and y_test should have the same number of samples, but got {X_test.shape[0]} and {y_test.shape[0]}"
+        )
+        assert X_cf.shape[0] == y_test.shape[0], (
+            f"X_cf and y_test should have the same number of samples, but got {X_cf.shape[0]} and {y_test.shape[0]}"
+        )
+        assert len(continuous_features) + len(categorical_features) == X_cf.shape[1], (
+            f"The sum of continuous and categorical features should equal the number of features in X_cf, but got {len(continuous_features)} + {len(categorical_features)} = {len(continuous_features) + len(categorical_features)} and {X_cf.shape[1]}"
+        )
+        assert ratio_cont is None or 0 <= ratio_cont <= 1, (
+            f"ratio_cont should be between 0 and 1, but got {ratio_cont}"
+        )
 
         # convert everything to torch tensors if not already
         self.X_cf = self._convert_to_numpy(X_cf)
@@ -111,11 +111,9 @@ class CFMetrics:
             y_target_indices = np.argmax(self.y_target_covered, axis=1)
         else:
             y_target_indices = self.y_target_covered
-        
+
         # filter only valid counterfactuals and test instances
-        self.X_cf_valid = self.X_cf_covered[
-            self.y_cf_pred_covered == y_target_indices
-        ]
+        self.X_cf_valid = self.X_cf_covered[self.y_cf_pred_covered == y_target_indices]
         self.X_test_valid = self.X_test_covered[
             self.y_cf_pred_covered == y_target_indices
         ]
@@ -176,10 +174,8 @@ class CFMetrics:
             y_target_indices = np.argmax(self.y_target_covered, axis=1)
         else:
             y_target_indices = self.y_target_covered
-        
-        return (
-            self.y_cf_pred_covered == y_target_indices
-        ).mean()
+
+        return (self.y_cf_pred_covered == y_target_indices).mean()
 
     def actionability(self) -> float:
         """
@@ -488,7 +484,7 @@ class CFMetricsNoPlausibility:
     """
     Class for computing counterfactual metrics without plausibility calculations.
     This variant excludes plausibility-related metrics that require generator models.
-    
+
     Args:
         X_cf (np.ndarray | torch.Tensor): Counterfactual instances.
         y_target (np.ndarray | torch.Tensor): Target labels for counterfactual instances.
@@ -516,24 +512,24 @@ class CFMetricsNoPlausibility:
         ratio_cont: Optional[float] = None,
     ) -> None:
         # precheck input assumptions
-        assert (
-            X_cf.shape[1] == X_train.shape[1] == X_test.shape[1]
-        ), f"All input data should have the same number of features, but got {X_cf.shape[1]}, {X_train.shape[1]}, {X_test.shape[1]}"
-        assert (
-            X_train.shape[0] == y_train.shape[0]
-        ), f"X_train and y_train should have the same number of samples, but got {X_train.shape[0]} and {y_train.shape[0]}"
-        assert (
-            X_test.shape[0] == y_test.shape[0]
-        ), f"X_test and y_test should have the same number of samples, but got {X_test.shape[0]} and {y_test.shape[0]}"
-        assert (
-            X_cf.shape[0] == y_test.shape[0]
-        ), f"X_cf and y_test should have the same number of samples, but got {X_cf.shape[0]} and {y_test.shape[0]}"
-        assert (
-            len(continuous_features) + len(categorical_features) == X_cf.shape[1]
-        ), f"The sum of continuous and categorical features should equal the number of features in X_cf, but got {len(continuous_features)} + {len(categorical_features)} = {len(continuous_features) + len(categorical_features)} and {X_cf.shape[1]}"
-        assert (
-            ratio_cont is None or 0 <= ratio_cont <= 1
-        ), f"ratio_cont should be between 0 and 1, but got {ratio_cont}"
+        assert X_cf.shape[1] == X_train.shape[1] == X_test.shape[1], (
+            f"All input data should have the same number of features, but got {X_cf.shape[1]}, {X_train.shape[1]}, {X_test.shape[1]}"
+        )
+        assert X_train.shape[0] == y_train.shape[0], (
+            f"X_train and y_train should have the same number of samples, but got {X_train.shape[0]} and {y_train.shape[0]}"
+        )
+        assert X_test.shape[0] == y_test.shape[0], (
+            f"X_test and y_test should have the same number of samples, but got {X_test.shape[0]} and {y_test.shape[0]}"
+        )
+        assert X_cf.shape[0] == y_test.shape[0], (
+            f"X_cf and y_test should have the same number of samples, but got {X_cf.shape[0]} and {y_test.shape[0]}"
+        )
+        assert len(continuous_features) + len(categorical_features) == X_cf.shape[1], (
+            f"The sum of continuous and categorical features should equal the number of features in X_cf, but got {len(continuous_features)} + {len(categorical_features)} = {len(continuous_features) + len(categorical_features)} and {X_cf.shape[1]}"
+        )
+        assert ratio_cont is None or 0 <= ratio_cont <= 1, (
+            f"ratio_cont should be between 0 and 1, but got {ratio_cont}"
+        )
 
         # convert everything to torch tensors if not already
         self.X_cf = self._convert_to_numpy(X_cf)
@@ -567,11 +563,9 @@ class CFMetricsNoPlausibility:
             y_target_indices = np.argmax(self.y_target_covered, axis=1)
         else:
             y_target_indices = self.y_target_covered
-        
+
         # filter only valid counterfactuals and test instances
-        self.X_cf_valid = self.X_cf_covered[
-            self.y_cf_pred_covered == y_target_indices
-        ]
+        self.X_cf_valid = self.X_cf_covered[self.y_cf_pred_covered == y_target_indices]
         self.X_test_valid = self.X_test_covered[
             self.y_cf_pred_covered == y_target_indices
         ]
@@ -632,10 +626,8 @@ class CFMetricsNoPlausibility:
             y_target_indices = np.argmax(self.y_target_covered, axis=1)
         else:
             y_target_indices = self.y_target_covered
-        
-        return (
-            self.y_cf_pred_covered == y_target_indices
-        ).mean()
+
+        return (self.y_cf_pred_covered == y_target_indices).mean()
 
     def actionability(self) -> float:
         """
