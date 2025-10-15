@@ -1,0 +1,12 @@
+metrics_to_compute:
+  - "coverage"
+  - "validity"
+  - "actionability"
+  - "sparsity"
+  - "proximity_categorical_hamming"
+  - "proximity_categorical_jaccard"
+  - "proximity_continuous_manhattan"
+  - "proximity_continuous_euclidean"
+  - "proximity_continuous_mad"
+  - "proximity_l2_jaccard"
+  - "proximity_mad_hamming"
