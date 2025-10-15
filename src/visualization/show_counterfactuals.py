@@ -20,18 +20,7 @@ def plot_counterfactuals(Xs, Xs_cfs, log_prob_threshold, disc_model, gen_model=N
         "olive",
         "cyan",
     ]
-    group_cf_colors = [
-        "orange",
-        "purple",
-        "green",
-        "orange",
-        "purple",
-        "brown",
-        "pink",
-        "gray",
-        "olive",
-        "cyan",
-    ]
+
     ax.scatter(
         Xs_cfs[:, 0],
         Xs_cfs[:, 1],
@@ -65,13 +54,6 @@ def plot_counterfactuals(Xs, Xs_cfs, log_prob_threshold, disc_model, gen_model=N
         plot_generative_model_distribution(ax, gen_model, log_prob_threshold, 2)
     plot_classifier_decision_region(ax, disc_model)
 
-    # ax.get_xaxis().set_visible(False)
-    # ax.get_yaxis().set_visible(False)
-    # remove frame
-    # ax.spines["top"].set_visible(False)
-    # ax.spines["right"].set_visible(False)
-    # ax.spines["bottom"].set_visible(False)
-    # ax.spines["left"].set_visible(False)
     plt.grid(True, alpha=0.3)
     plt.xlabel("Feature 1")
     plt.ylabel("Feature 2")
