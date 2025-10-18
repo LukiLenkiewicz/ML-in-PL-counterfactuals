@@ -35,3 +35,6 @@ The installer adds uv to your shell profile. Open a new terminal after installat
    source .venv/bin/activate
    uv pip install .
    ```
+
+##
+This tutorial is made on top of [counterfactuals](https://github.com/ofurman/counterfactuals) library.
