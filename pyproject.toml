@@ -11,6 +11,8 @@ dependencies = [
     "scikit-learn>=1.7.2",
     "seaborn>=0.13.2",
     "torch>=2.8.0",
+    "UMNN",
+    "mlxtend",
     "counterfactuals @ git+https://github.com/ofurman/counterfactuals.git@ml-in-pl"
 ]
 
